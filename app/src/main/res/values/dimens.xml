@@ -31,4 +31,12 @@
     <!-- Overriding the default values of the tableView -->
     <dimen name="default_row_header_width">55dp</dimen>
     <dimen name="default_column_header_height">40dp</dimen>
+
+    <!--Second Activity-->
+    <dimen name="sa_row_header_width">200dp</dimen>
+    <dimen name="sa_row_header_height">55dp</dimen>
+    <dimen name="sa_column_header_width">40dp</dimen>
+    <dimen name="sa_column_header_height">40dp</dimen>
+    <dimen name="sa_cell_width">40dp</dimen>
+    <dimen name="sa_cell_height">55dp</dimen>
 </resources>

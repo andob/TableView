@@ -1,9 +1,5 @@
 package com.evrencoskun.tableview.sort;
 
-import android.util.Log;
-import android.view.View;
-
-
 /**
  * Created by cedricferry on 6/2/18.
  */

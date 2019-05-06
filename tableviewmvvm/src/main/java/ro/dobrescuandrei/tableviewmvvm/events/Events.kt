@@ -12,7 +12,7 @@ class OnColumnHeaderClickedEvent<COLUMN>
 
 class OnCellClickedEvent<CELL>
 (
-    val cell: CELL,
+    val cell : CELL,
     val columnPosition : Int,
     val rowPosition : Int
 )

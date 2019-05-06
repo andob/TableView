@@ -1,11 +1,11 @@
 package ro.dobrescuandrei.tableviewmvvm
 
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.text.TextUtils
 import android.view.View
 import android.widget.TextView
 import com.evrencoskun.tableview.TableView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import org.greenrobot.eventbus.Subscribe
 import ro.andreidobrescu.basefilter.BaseFilter
@@ -17,7 +17,6 @@ import ro.dobrescuandrei.tableviewmvvm.events.OnColumnHeaderClickedEvent
 import ro.dobrescuandrei.tableviewmvvm.events.OnRowHeaderClickedEvent
 
 abstract class BaseTableActivity<VIEW_MODEL : BaseTableViewModel<COLUMN, ROW, CELL, FILTER>,
-        ADAPTER : SimpleTableAdapter<COLUMN, ROW, CELL>,
         COLUMN, ROW, CELL,
         FILTER : BaseFilter>
     : BaseActivity<VIEW_MODEL>()
@@ -62,6 +61,11 @@ abstract class BaseTableActivity<VIEW_MODEL : BaseTableViewModel<COLUMN, ROW, CE
 
             override fun onQueryTextChange(newText: String?): Boolean = true
         })
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?)
+    {
+        super.onPostCreate(savedInstanceState)
 
         tableView.adapter=provideAdapter()
         emptyView.text=provideEmptyViewText()
@@ -73,6 +77,7 @@ abstract class BaseTableActivity<VIEW_MODEL : BaseTableViewModel<COLUMN, ROW, CE
             tableView.invalidate()
             tableView.requestLayout()
             tableView.scrollToRowPosition(0)
+            tableView.scrollToColumnPosition(0)
             viewModel.itemsLiveData.value=null
         }
 
@@ -92,7 +97,7 @@ abstract class BaseTableActivity<VIEW_MODEL : BaseTableViewModel<COLUMN, ROW, CE
         viewModel.loadData()
     }
 
-    abstract fun provideAdapter() : ADAPTER
+    open fun provideAdapter() = SimpleTableAdapter<COLUMN, ROW, CELL>(this)
     open fun provideEmptyViewText(): String = getString(R.string.no_items)
 
     override fun onBackPressed()
@@ -143,7 +148,7 @@ abstract class BaseTableActivity<VIEW_MODEL : BaseTableViewModel<COLUMN, ROW, CE
     open fun onRowClicked(event : OnRowHeaderClickedEvent<ROW>) {}
 
     @Subscribe
-    private fun onCellClicked(event : OnCellClickedEvent<CELL>)
+    fun onCellClicked(event : OnCellClickedEvent<CELL>)
     {
         val adapter=tableView.adapter as SimpleTableAdapter<COLUMN, ROW, CELL>
         val row=adapter.getRowHeaderItem(event.rowPosition)
