@@ -1,6 +1,7 @@
 package com.evrencoskun.tableviewsample
 
 import android.os.Bundle
+import android.view.View
 import ro.dobrescuandrei.mvvm.utils.DummyFilter
 import ro.dobrescuandrei.tableviewmvvm.BaseTableActivity
 import ro.dobrescuandrei.tableviewmvvm.adapter.SimpleTableAdapter
@@ -10,7 +11,7 @@ class SecondActivity : BaseTableActivity<SecondViewModel, Int, String, Int, Dumm
     override fun viewModelClass() = SecondViewModel::class.java
     override fun layout() = R.layout.activity_second
 
-    override fun onCellClicked(cell: Int, column: Int, row: String)
+    override fun onCellClicked(senderView: View, cell: Int, column: Int, row: String)
     {
         println("$cell $column $row")
     }
