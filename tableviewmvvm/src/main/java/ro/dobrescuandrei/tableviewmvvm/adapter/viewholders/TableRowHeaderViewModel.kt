@@ -27,7 +27,9 @@ class TableRowHeaderViewModel<ROW> : AbstractViewHolder
 
         itemView.layoutParams=RecyclerView.LayoutParams(width, height)
         itemView.setOnClickListener {
-            ForegroundEventBus.post(OnRowHeaderClickedEvent(row))
+            ForegroundEventBus.post(OnRowHeaderClickedEvent(
+                senderView = itemView,
+                row = row))
         }
     }
 }

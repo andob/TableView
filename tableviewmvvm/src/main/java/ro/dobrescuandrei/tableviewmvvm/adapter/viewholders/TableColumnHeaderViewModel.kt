@@ -27,7 +27,9 @@ class TableColumnHeaderViewModel<COLUMN> : AbstractViewHolder
 
         itemView.layoutParams=RecyclerView.LayoutParams(width, height)
         itemView.setOnClickListener {
-            ForegroundEventBus.post(OnColumnHeaderClickedEvent(column))
+            ForegroundEventBus.post(OnColumnHeaderClickedEvent(
+                senderView = itemView,
+                column = column))
         }
     }
 }

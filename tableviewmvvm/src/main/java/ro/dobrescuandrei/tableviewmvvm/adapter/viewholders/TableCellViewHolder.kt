@@ -29,7 +29,11 @@ class TableCellViewHolder<CELL> : AbstractViewHolder
 
         itemView.layoutParams=RecyclerView.LayoutParams(width, height)
         itemView.setOnClickListener {
-            ForegroundEventBus.post(OnCellClickedEvent(cell, columnPosition, rowPosition))
+            ForegroundEventBus.post(OnCellClickedEvent(
+                senderView = itemView,
+                cell = cell,
+                columnPosition = columnPosition,
+                rowPosition = rowPosition))
         }
     }
 }

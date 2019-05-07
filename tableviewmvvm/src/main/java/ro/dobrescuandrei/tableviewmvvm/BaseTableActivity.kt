@@ -154,8 +154,8 @@ abstract class BaseTableActivity<VIEW_MODEL : BaseTableViewModel<COLUMN, ROW, CE
         val row=adapter.getRowHeaderItem(event.rowPosition)
         val column=adapter.getColumnHeaderItem(event.columnPosition)
 
-        onCellClicked(event.cell, column, row)
+        onCellClicked(event.senderView, event.cell, column, row)
     }
 
-    open fun onCellClicked(cell : CELL, column : COLUMN, row : ROW) {}
+    open fun onCellClicked(senderView : View, cell : CELL, column : COLUMN, row : ROW) {}
 }
