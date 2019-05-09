@@ -26,7 +26,7 @@ abstract class BaseTableViewModel<COLUMN, ROW, CELL, FILTER : BaseFilter> : Base
 
     abstract fun getColumns(filter : FILTER) : Single<List<COLUMN>>
     abstract fun getRows(filter : FILTER) : Single<List<ROW>>
-    abstract fun getCells(filter : FILTER) : Single<List<List<CELL>>>
+    abstract fun getCells(filter : FILTER, rows : List<ROW>, columns : List<COLUMN>) : Single<List<List<CELL>>>
 
     override fun onCreate()
     {
@@ -44,10 +44,15 @@ abstract class BaseTableViewModel<COLUMN, ROW, CELL, FILTER : BaseFilter> : Base
         showLoading()
 
         Single.fromCallable {
-            TableMatrix(
-                columns = getColumns(filterLiveData.value).blockingGet(),
-                rows = getRows(filterLiveData.value).blockingGet(),
-                cells = getCells(filterLiveData.value).blockingGet())
+            val matrix=TableMatrix<COLUMN, ROW, CELL>(
+                columns = getColumns(filter = filterLiveData.value).blockingGet(),
+                rows = getRows(filter = filterLiveData.value).blockingGet())
+
+            matrix.cells=getCells(filter = filterLiveData.value,
+                rows = matrix.rows,
+                columns = matrix.columns).blockingGet()
+
+            return@fromCallable matrix
         }
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())

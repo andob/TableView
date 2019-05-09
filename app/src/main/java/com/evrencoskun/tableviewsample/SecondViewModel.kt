@@ -25,13 +25,12 @@ class SecondViewModel : BaseTableViewModel<Int, String, Int, DummyFilter>(DummyF
         }
     }
 
-    override fun getCells(filter : DummyFilter) = Single.fromCallable {
+    override fun getCells(filter: DummyFilter, rows: List<String>, columns: List<Int>) = Single.fromCallable {
         yieldListOf<List<Int>> {
-            val random= Random(System.currentTimeMillis())
-            for (i in 1..getRows(filter).blockingGet().size)
+            val random=Random(System.currentTimeMillis())
+            for (row in rows)
                 yield(yieldListOf {
-                    val dayOfMonth=DateTime.now().startOfMonth().dayOfMonth()
-                    for (day in dayOfMonth.minimumValue..dayOfMonth.maximumValue)
+                    for (column in columns)
                         yield(if (random.nextBoolean()) 0
                             else random.nextInt(10)+1)
                 })

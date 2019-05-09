@@ -4,7 +4,7 @@ class TableMatrix<COLUMN, ROW, CELL>
 (
     val columns : List<COLUMN>,
     val rows : List<ROW>,
-    val cells : List<List<CELL>>
+    var cells : List<List<CELL>> = listOf()
 )
 {
     fun isEmpty() = cells.isEmpty()
