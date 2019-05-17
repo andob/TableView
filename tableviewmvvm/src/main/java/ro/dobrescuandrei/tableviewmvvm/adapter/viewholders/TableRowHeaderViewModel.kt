@@ -1,5 +1,6 @@
 package ro.dobrescuandrei.tableviewmvvm.adapter.viewholders
 
+import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +27,7 @@ class TableRowHeaderViewModel<ROW> : AbstractViewHolder
                 rowBackgroundColorProvider : ((ROW) -> (Color))?)
     {
         val rowLabel=itemView.findViewById<TextView>(R.id.rowLabel)
-        rowLabel.setBackgroundColor(rowBackgroundColorProvider?.invoke(row)?.value?:Colors.Transparent.value)
+        rowLabel.background=ColorDrawable(rowBackgroundColorProvider?.invoke(row)?.value?:Colors.Transparent.value)
         rowLabel.text=rowFormatter?.invoke(row)?:row.toString()
 
         itemView.layoutParams=RecyclerView.LayoutParams(width, height)
