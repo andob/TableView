@@ -11,6 +11,7 @@ import ro.dobrescuandrei.tableviewmvvm.R
 import ro.dobrescuandrei.tableviewmvvm.adapter.viewholders.TableCellViewHolder
 import ro.dobrescuandrei.tableviewmvvm.adapter.viewholders.TableColumnHeaderViewModel
 import ro.dobrescuandrei.tableviewmvvm.adapter.viewholders.TableRowHeaderViewModel
+import ro.dobrescuandrei.utils.Color
 
 open class SimpleTableAdapter<COLUMN, ROW, CELL> : AbstractTableAdapter<COLUMN, ROW, CELL>
 {
@@ -54,7 +55,8 @@ open class SimpleTableAdapter<COLUMN, ROW, CELL> : AbstractTableAdapter<COLUMN, 
                 row = model as ROW,
                 width = getRowHeaderWidth(),
                 height = getRowHeaderHeight(),
-                rowFormatter = getRowFormatter())
+                rowFormatter = getRowFormatter(),
+                rowBackgroundColorProvider = getRowBackgroundColorProvider())
     }
 
     override fun onCreateCornerView(): View = LayoutInflater.from(mContext)
@@ -71,7 +73,9 @@ open class SimpleTableAdapter<COLUMN, ROW, CELL> : AbstractTableAdapter<COLUMN, 
     open fun getCellWidth()          : Int = FrameLayout.LayoutParams.WRAP_CONTENT
     open fun getCellHeight()         : Int = FrameLayout.LayoutParams.WRAP_CONTENT
 
-    open fun getRowFormatter()       : ((ROW)    -> (String))? = null
-    open fun getColumnFormatter()    : ((COLUMN) -> (String))? = null
-    open fun getCellFormatter()      : ((CELL)   -> (String))? = null
+    open fun getRowFormatter()    : ((ROW)    -> (String))? = null
+    open fun getColumnFormatter() : ((COLUMN) -> (String))? = null
+    open fun getCellFormatter()   : ((CELL)   -> (String))? = null
+
+    open fun getRowBackgroundColorProvider() : ((ROW) -> Color)? = null
 }

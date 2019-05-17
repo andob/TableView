@@ -7,6 +7,8 @@ import com.evrencoskun.tableview.adapter.recyclerview.holder.AbstractViewHolder
 import ro.dobrescuandrei.mvvm.eventbus.ForegroundEventBus
 import ro.dobrescuandrei.tableviewmvvm.R
 import ro.dobrescuandrei.tableviewmvvm.events.OnRowHeaderClickedEvent
+import ro.dobrescuandrei.utils.Color
+import ro.dobrescuandrei.utils.Colors
 
 class TableRowHeaderViewModel<ROW> : AbstractViewHolder
 {
@@ -20,9 +22,11 @@ class TableRowHeaderViewModel<ROW> : AbstractViewHolder
     fun setData(row : ROW,
                 width : Int,
                 height : Int,
-                rowFormatter : ((ROW) -> (String))?)
+                rowFormatter : ((ROW) -> (String))?,
+                rowBackgroundColorProvider : ((ROW) -> (Color))?)
     {
         val rowLabel=itemView.findViewById<TextView>(R.id.rowLabel)
+        rowLabel.setBackgroundColor(rowBackgroundColorProvider?.invoke(row)?.value?:Colors.Transparent.value)
         rowLabel.text=rowFormatter?.invoke(row)?:row.toString()
 
         itemView.layoutParams=RecyclerView.LayoutParams(width, height)
