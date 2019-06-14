@@ -52,6 +52,8 @@ abstract class BaseTableViewModel<COLUMN, ROW, CELL, FILTER : BaseFilter> : Base
                 rows = matrix.rows,
                 columns = matrix.columns).blockingGet()
 
+            order(matrix)
+
             return@fromCallable matrix
         }
         .subscribeOn(Schedulers.io())
@@ -66,6 +68,8 @@ abstract class BaseTableViewModel<COLUMN, ROW, CELL, FILTER : BaseFilter> : Base
             isEmptyLiveData.value=items.isEmpty()
         })
     }
+
+    open fun order(matrix : TableMatrix<COLUMN, ROW, CELL>) {}
 
     fun notifyFilterChange(consumer : (FILTER) -> (Unit))
     {
