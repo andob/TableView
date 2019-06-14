@@ -24,9 +24,7 @@ abstract class BaseTableViewModel<COLUMN, ROW, CELL, FILTER : BaseFilter> : Base
     val itemsLiveData : MutableLiveData<TableMatrix<COLUMN, ROW, CELL>> by lazy { MutableLiveData<TableMatrix<COLUMN, ROW, CELL>>() }
     val isEmptyLiveData : MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
 
-    abstract fun getColumns(filter : FILTER) : Single<List<COLUMN>>
-    abstract fun getRows(filter : FILTER) : Single<List<ROW>>
-    abstract fun getCells(filter : FILTER, rows : List<ROW>, columns : List<COLUMN>) : Single<List<List<CELL>>>
+    abstract fun getData(filter : FILTER)  : Single<TableMatrix<COLUMN, ROW, CELL>>
 
     override fun onCreate()
     {
@@ -43,33 +41,19 @@ abstract class BaseTableViewModel<COLUMN, ROW, CELL, FILTER : BaseFilter> : Base
 
         showLoading()
 
-        Single.fromCallable {
-            val matrix=TableMatrix<COLUMN, ROW, CELL>(
-                columns = getColumns(filter = filterLiveData.value).blockingGet(),
-                rows = getRows(filter = filterLiveData.value).blockingGet())
-
-            matrix.cells=getCells(filter = filterLiveData.value,
-                rows = matrix.rows,
-                columns = matrix.columns).blockingGet()
-
-            order(matrix)
-
-            return@fromCallable matrix
-        }
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribeBy(onError = { ex ->
-            showError(ex)
-            hideLoading()
-            isEmptyLiveData.value=true
-        }, onSuccess = { items ->
-            hideLoading()
-            itemsLiveData.value=items
-            isEmptyLiveData.value=items.isEmpty()
-        })
+        getData(filter = filterLiveData.value)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(onError = { ex ->
+                showError(ex)
+                hideLoading()
+                isEmptyLiveData.value=true
+            }, onSuccess = { items ->
+                hideLoading()
+                itemsLiveData.value=items
+                isEmptyLiveData.value=items.isEmpty()
+            })
     }
-
-    open fun order(matrix : TableMatrix<COLUMN, ROW, CELL>) {}
 
     fun notifyFilterChange(consumer : (FILTER) -> (Unit))
     {
