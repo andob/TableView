@@ -22,7 +22,7 @@ abstract class BaseTableActivity<VIEW_MODEL : BaseTableViewModel<COLUMN, ROW, CE
     : BaseActivity<VIEW_MODEL>()
 {
     lateinit var tableView : TableView
-    lateinit var emptyView : TextView
+    lateinit var emptyView : View
     var addButton : FloatingActionButton? = null
 
     override fun loadDataFromIntent()
@@ -68,7 +68,6 @@ abstract class BaseTableActivity<VIEW_MODEL : BaseTableViewModel<COLUMN, ROW, CE
         super.onPostCreate(savedInstanceState)
 
         tableView.adapter=provideAdapter()
-        emptyView.text=provideEmptyViewText()
 
         viewModel.onCreate()
 
@@ -98,7 +97,6 @@ abstract class BaseTableActivity<VIEW_MODEL : BaseTableViewModel<COLUMN, ROW, CE
     }
 
     open fun provideAdapter() = SimpleTableAdapter<COLUMN, ROW, CELL>(this)
-    open fun provideEmptyViewText(): String = getString(R.string.no_items)
 
     override fun onBackPressed()
     {
