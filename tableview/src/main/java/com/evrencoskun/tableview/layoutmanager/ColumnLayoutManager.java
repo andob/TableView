@@ -20,10 +20,9 @@ package com.evrencoskun.tableview.layoutmanager;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
-
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.evrencoskun.tableview.ITableView;
 import com.evrencoskun.tableview.adapter.recyclerview.CellRecyclerView;
 import com.evrencoskun.tableview.adapter.recyclerview.holder.AbstractViewHolder;
@@ -36,17 +35,21 @@ import com.evrencoskun.tableview.util.TableViewUtils;
 public class ColumnLayoutManager extends LinearLayoutManager {
     private static final String LOG_TAG = ColumnLayoutManager.class.getSimpleName();
 
+    @NonNull
     private ITableView mTableView;
-    private CellRecyclerView mCellRowRecyclerView, mColumnHeaderRecyclerView;
+    private CellRecyclerView mCellRowRecyclerView;
+    @NonNull
+    private CellRecyclerView mColumnHeaderRecyclerView;
+    @NonNull
     private ColumnHeaderLayoutManager mColumnHeaderLayoutManager;
+    @NonNull
     private CellLayoutManager mCellLayoutManager;
 
     private boolean mNeedFitForVerticalScroll, mNeedFitForHorizontalScroll;
     private int mLastDx = 0;
     private int mYPosition;
 
-
-    public ColumnLayoutManager(Context context, ITableView tableView) {
+    public ColumnLayoutManager(@NonNull Context context, @NonNull ITableView tableView) {
         super(context);
         this.mTableView = tableView;
         this.mColumnHeaderRecyclerView = mTableView.getColumnHeaderRecyclerView();
@@ -68,9 +71,8 @@ public class ColumnLayoutManager extends LinearLayoutManager {
         mYPosition = getRowPosition();
     }
 
-
     @Override
-    public void measureChildWithMargins(View child, int widthUsed, int heightUsed) {
+    public void measureChildWithMargins(@NonNull View child, int widthUsed, int heightUsed) {
         super.measureChildWithMargins(child, widthUsed, heightUsed);
 
         // If has fixed width is true, than calculation of the column width is not necessary.
@@ -82,7 +84,7 @@ public class ColumnLayoutManager extends LinearLayoutManager {
     }
 
     @Override
-    public void measureChild(View child, int widthUsed, int heightUsed) {
+    public void measureChild(@NonNull View child, int widthUsed, int heightUsed) {
 
         int columnPosition = getPosition(child);
 
@@ -125,8 +127,8 @@ public class ColumnLayoutManager extends LinearLayoutManager {
         mNeedFitForHorizontalScroll = false;
     }
 
-    private void fitWidthSize(View child, int row, int column, int cellWidth, int
-            columnHeaderWidth, View columnHeaderChild) {
+    private void fitWidthSize(@NonNull View child, int row, int column, int cellWidth, int
+            columnHeaderWidth, @NonNull View columnHeaderChild) {
 
         if (cellWidth == -1) {
             // Alternatively, TableViewUtils.getWidth(child);
@@ -220,6 +222,7 @@ public class ColumnLayoutManager extends LinearLayoutManager {
         mNeedFitForVerticalScroll = false;
     }
 
+    @NonNull
     public AbstractViewHolder[] getVisibleViewHolders() {
         int visibleChildCount = findLastVisibleItemPosition() - findFirstVisibleItemPosition() + 1;
         int index = 0;

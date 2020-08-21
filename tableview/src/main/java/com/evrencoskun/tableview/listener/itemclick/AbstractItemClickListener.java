@@ -19,13 +19,13 @@ package com.evrencoskun.tableview.listener.itemclick;
 
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.evrencoskun.tableview.ITableView;
 import com.evrencoskun.tableview.adapter.recyclerview.CellRecyclerView;
 import com.evrencoskun.tableview.handler.SelectionHandler;
 import com.evrencoskun.tableview.listener.ITableViewListener;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by evrencoskun on 22.11.2017.
@@ -33,12 +33,16 @@ import com.evrencoskun.tableview.listener.ITableViewListener;
 
 public abstract class AbstractItemClickListener implements RecyclerView.OnItemTouchListener {
     private ITableViewListener mListener;
+    @NonNull
     protected GestureDetector mGestureDetector;
+    @NonNull
     protected CellRecyclerView mRecyclerView;
+    @NonNull
     protected SelectionHandler mSelectionHandler;
+    @NonNull
     protected ITableView mTableView;
 
-    public AbstractItemClickListener(CellRecyclerView recyclerView, ITableView tableView) {
+    public AbstractItemClickListener(@NonNull CellRecyclerView recyclerView, @NonNull ITableView tableView) {
         this.mRecyclerView = recyclerView;
         this.mTableView = tableView;
         this.mSelectionHandler = tableView.getSelectionHandler();
@@ -46,6 +50,7 @@ public abstract class AbstractItemClickListener implements RecyclerView.OnItemTo
         mGestureDetector = new GestureDetector(mRecyclerView.getContext(), new GestureDetector
                 .SimpleOnGestureListener() {
 
+            @Nullable
             MotionEvent start;
 
             @Override
@@ -56,6 +61,11 @@ public abstract class AbstractItemClickListener implements RecyclerView.OnItemTo
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
                 return clickAction(mRecyclerView, e);
+            }
+
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                return doubleClickAction(e);
             }
 
             @Override
@@ -76,18 +86,21 @@ public abstract class AbstractItemClickListener implements RecyclerView.OnItemTo
     }
 
     @Override
-    public boolean onInterceptTouchEvent(RecyclerView view, MotionEvent e) {
+    public boolean onInterceptTouchEvent(@NonNull RecyclerView view, @NonNull MotionEvent e) {
         mGestureDetector.onTouchEvent(e);
+        // Return false intentionally
         return false;
     }
 
     @Override
-    public void onTouchEvent(RecyclerView view, MotionEvent motionEvent) { }
+    public void onTouchEvent(@NonNull RecyclerView view, @NonNull MotionEvent motionEvent) {
+    }
 
     @Override
-    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {}
+    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+    }
 
-
+    @NonNull
     protected ITableViewListener getTableViewListener() {
         if (mListener == null) {
             mListener = mTableView.getTableViewListener();
@@ -95,7 +108,9 @@ public abstract class AbstractItemClickListener implements RecyclerView.OnItemTo
         return mListener;
     }
 
-    abstract protected boolean clickAction(RecyclerView view, MotionEvent e);
+    abstract protected boolean clickAction(@NonNull RecyclerView view, @NonNull MotionEvent e);
 
-    abstract protected void longPressAction(MotionEvent e);
+    abstract protected void longPressAction(@NonNull MotionEvent e);
+
+    abstract protected boolean doubleClickAction(@NonNull MotionEvent e);
 }

@@ -20,21 +20,22 @@ package com.evrencoskun.tableviewsample.tableview.model;
 import com.evrencoskun.tableview.filter.IFilterableModel;
 import com.evrencoskun.tableview.sort.ISortableModel;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 /**
  * Created by evrencoskun on 11/06/2017.
  */
 
 public class Cell implements ISortableModel, IFilterableModel {
-
+    @NonNull
     private String mId;
+    @Nullable
     private Object mData;
+    @NonNull
     private String mFilterKeyword;
 
-    public Cell(String id) {
-        this.mId = id;
-    }
-
-    public Cell(String id, Object data) {
+    public Cell(@NonNull String id, @Nullable Object data) {
         this.mId = id;
         this.mData = data;
         this.mFilterKeyword = String.valueOf(data);
@@ -44,6 +45,7 @@ public class Cell implements ISortableModel, IFilterableModel {
      * This is necessary for sorting process.
      * See ISortableModel
      */
+    @NonNull
     @Override
     public String getId() {
         return mId;
@@ -53,29 +55,24 @@ public class Cell implements ISortableModel, IFilterableModel {
      * This is necessary for sorting process.
      * See ISortableModel
      */
+    @Nullable
     @Override
     public Object getContent() {
         return mData;
     }
 
-
+    @Nullable
     public Object getData() {
         return mData;
     }
 
-    public void setData(String data) { mData = data; }
-
-    public String getFilterKeyword() {
-        return mFilterKeyword;
+    public void setData(@Nullable Object data) {
+        mData = data;
     }
 
-    public void setFilterKeyword(String filterKeyword) {
-        this.mFilterKeyword = filterKeyword;
-    }
-
+    @NonNull
     @Override
     public String getFilterableKeyword() {
         return mFilterKeyword;
     }
 }
-

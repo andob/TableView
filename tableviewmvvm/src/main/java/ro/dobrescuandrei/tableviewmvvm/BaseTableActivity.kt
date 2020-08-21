@@ -3,7 +3,6 @@ package ro.dobrescuandrei.tableviewmvvm
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
-import android.widget.TextView
 import com.evrencoskun.tableview.TableView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.miguelcatalan.materialsearchview.MaterialSearchView
@@ -67,7 +66,7 @@ abstract class BaseTableActivity<VIEW_MODEL : BaseTableViewModel<COLUMN, ROW, CE
     {
         super.onPostCreate(savedInstanceState)
 
-        tableView.adapter=provideAdapter()
+        tableView.setAdapter(provideAdapter())
 
         viewModel.onCreate()
 
@@ -149,8 +148,8 @@ abstract class BaseTableActivity<VIEW_MODEL : BaseTableViewModel<COLUMN, ROW, CE
     fun onCellClicked(event : OnCellClickedEvent<CELL>)
     {
         val adapter=tableView.adapter as SimpleTableAdapter<COLUMN, ROW, CELL>
-        val row=adapter.getRowHeaderItem(event.rowPosition)
-        val column=adapter.getColumnHeaderItem(event.columnPosition)
+        val row=adapter.getRowHeaderItem(event.rowPosition)!!
+        val column=adapter.getColumnHeaderItem(event.columnPosition)!!
 
         onCellClicked(event.senderView, event.cell, column, row)
     }

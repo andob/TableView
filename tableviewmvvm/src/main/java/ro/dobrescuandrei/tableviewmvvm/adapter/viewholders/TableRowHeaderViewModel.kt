@@ -13,7 +13,7 @@ import ro.dobrescuandrei.utils.Colors
 
 class TableRowHeaderViewModel<ROW> : AbstractViewHolder
 {
-    constructor(itemView: View?) : super(itemView)
+    constructor(itemView: View) : super(itemView)
 
     companion object
     {

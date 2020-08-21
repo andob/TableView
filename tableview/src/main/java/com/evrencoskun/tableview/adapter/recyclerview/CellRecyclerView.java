@@ -20,9 +20,8 @@ package com.evrencoskun.tableview.adapter.recyclerview;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
-
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.evrencoskun.tableview.R;
 import com.evrencoskun.tableview.listener.scroll.HorizontalRecyclerViewListener;
 import com.evrencoskun.tableview.listener.scroll.VerticalRecyclerViewListener;
@@ -40,7 +39,7 @@ public class CellRecyclerView extends RecyclerView {
     private boolean mIsHorizontalScrollListenerRemoved = true;
     private boolean mIsVerticalScrollListenerRemoved = true;
 
-    public CellRecyclerView(Context context) {
+    public CellRecyclerView(@NonNull Context context) {
         super(context);
 
         // These are necessary.
@@ -61,7 +60,6 @@ public class CellRecyclerView extends RecyclerView {
         super.onScrolled(dx, dy);
     }
 
-
     public int getScrolledX() {
         return mScrolledX;
     }
@@ -70,11 +68,12 @@ public class CellRecyclerView extends RecyclerView {
         mScrolledX = 0;
     }
 
-    public int getScrolledY() { return mScrolledY; }
-
+    public int getScrolledY() {
+        return mScrolledY;
+    }
 
     @Override
-    public void addOnScrollListener(OnScrollListener listener) {
+    public void addOnScrollListener(@NonNull OnScrollListener listener) {
         if (listener instanceof HorizontalRecyclerViewListener) {
             if (mIsHorizontalScrollListenerRemoved) {
                 mIsHorizontalScrollListenerRemoved = false;
@@ -99,7 +98,7 @@ public class CellRecyclerView extends RecyclerView {
     }
 
     @Override
-    public void removeOnScrollListener(OnScrollListener listener) {
+    public void removeOnScrollListener(@NonNull OnScrollListener listener) {
         if (listener instanceof HorizontalRecyclerViewListener) {
             if (mIsHorizontalScrollListenerRemoved) {
                 // Do not let remove the listener
@@ -131,7 +130,6 @@ public class CellRecyclerView extends RecyclerView {
         return !mIsHorizontalScrollListenerRemoved;
     }
 
-
     /**
      * Begin a standard fling with an initial velocity along each axis in pixels per second.
      * If the velocity given is below the system-defined minimum this method will return false
@@ -139,10 +137,8 @@ public class CellRecyclerView extends RecyclerView {
      *
      * @param velocityX Initial horizontal velocity in pixels per second
      * @param velocityY Initial vertical velocity in pixels per second
-     *
      * @return true if the fling was started, false if the velocity was too low to fling or
      * LayoutManager does not support scrolling in the axis fling is issued.
-     *
      * @see LayoutManager#canScrollVertically()
      * @see LayoutManager#canScrollHorizontally()
      */

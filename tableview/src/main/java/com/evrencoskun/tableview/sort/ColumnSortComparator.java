@@ -17,6 +17,8 @@
 
 package com.evrencoskun.tableview.sort;
 
+import androidx.annotation.NonNull;
+
 import java.util.Comparator;
 import java.util.List;
 
@@ -28,7 +30,7 @@ public class ColumnSortComparator extends AbstractSortComparator implements Comp
 
     private int mXPosition;
 
-    public ColumnSortComparator(int xPosition, SortState sortState) {
+    public ColumnSortComparator(int xPosition, @NonNull SortState sortState) {
         this.mXPosition = xPosition;
         this.mSortState = sortState;
     }

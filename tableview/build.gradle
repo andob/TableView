@@ -2,21 +2,31 @@ apply plugin: 'com.android.library'
 apply plugin: 'digital.wup.android-maven-publish'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion compile_sdk_version
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 29
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
         versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
+        versionName '1.0'
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = java_version
+        targetCompatibility = java_version
+    }
+
+    libraryVariants.all {
+        it.generateBuildConfigProvider.configure {
+            it.enabled = false
         }
     }
 
@@ -57,7 +67,7 @@ publishing {
                 from components.findByName("android${variant.name.capitalize()}")
                 groupId 'ro.andob.tableview'
                 artifactId 'tableview'
-                version 'v0.9.1.9'
+                version 'v0.9.2.0'
             }
         }
     }

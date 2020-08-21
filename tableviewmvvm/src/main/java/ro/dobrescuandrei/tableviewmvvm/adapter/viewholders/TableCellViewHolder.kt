@@ -10,7 +10,7 @@ import ro.dobrescuandrei.tableviewmvvm.events.OnCellClickedEvent
 
 class TableCellViewHolder<CELL> : AbstractViewHolder
 {
-    constructor(itemView: View?) : super(itemView)
+    constructor(itemView: View) : super(itemView)
 
     companion object
     {

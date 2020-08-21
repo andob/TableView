@@ -10,7 +10,7 @@ import ro.dobrescuandrei.tableviewmvvm.events.OnColumnHeaderClickedEvent
 
 class TableColumnHeaderViewModel<COLUMN> : AbstractViewHolder
 {
-    constructor(itemView: View?) : super(itemView)
+    constructor(itemView: View) : super(itemView)
 
     companion object
     {
