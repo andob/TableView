@@ -42,7 +42,7 @@ publishing {
                 from components.findByName("android${variant.name.capitalize()}")
                 groupId 'ro.andob.tableview'
                 artifactId 'tableview-mvvm'
-                version 'v0.9.2.0'
+                version 'v0.9.2.1'
             }
         }
     }

@@ -771,6 +771,11 @@ public class TableView extends FrameLayout implements ITableView {
         mColumnWidthHandler.setColumnWidth(columnPosition, width);
     }
 
+    public void setColumnHeaderHeight(int columnHeaderHeight)
+    {
+        this.mColumnHeaderHeight = columnHeaderHeight;
+    }
+
     @Nullable
     @Override
     protected Parcelable onSaveInstanceState() {
