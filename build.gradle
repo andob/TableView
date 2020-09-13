@@ -18,17 +18,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.4.0'
-    ext.androidx_annotation_version = '1.1.0'
-    ext.androidx_appcompat_version = '1.1.0'
-    ext.androidx_core_version = '1.1.0'
-    ext.androidx_fragment_version = '1.1.0'
-    ext.androidx_recyclerview_version = '1.1.0'
-    ext.compile_sdk_version = 29
-    ext.java_version = '1.8'
-    ext.min_sdk_version = 21
-    ext.target_sdk_version = 29
-
     repositories {
         google()
         jcenter()
@@ -38,8 +27,8 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:1.4.10"
         classpath 'digital.wup:android-maven-publish:3.6.2'
     }
 }
