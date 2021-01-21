@@ -17,6 +17,7 @@
 
 package com.evrencoskun.tableviewsample;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,5 +33,8 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().add(R.id.activity_container, new
                     MainFragment(), MainFragment.class.getSimpleName()).commit();
         }
+
+        Intent intent=new Intent(this, SecondActivity.class);
+        startActivity(intent);
     }
 }

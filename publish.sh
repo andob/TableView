@@ -8,5 +8,6 @@ read -s -r MAVEN_PUBLISH_PASSWORD
 echo "Publishing..."
 
 ./gradlew :tableview:publish
+./gradlew :tableviewmvvm:publish
 
 set +o allexport

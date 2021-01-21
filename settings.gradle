@@ -15,4 +15,4 @@
  *
  */
 
-include ':app', ':tableview'
+include ':app', ':tableview', ':tableviewmvvm'
