@@ -5,6 +5,7 @@ import android.view.View
 import ro.dobrescuandrei.mvvm.utils.DummyFilter
 import ro.dobrescuandrei.tableviewmvvm.BaseTableActivity
 import ro.dobrescuandrei.tableviewmvvm.adapter.SimpleTableAdapter
+import ro.dobrescuandrei.utils.ScreenSize
 
 class SecondActivity : BaseTableActivity<SecondViewModel, Int, String, Int, DummyFilter>()
 {
@@ -19,6 +20,8 @@ class SecondActivity : BaseTableActivity<SecondViewModel, Int, String, Int, Dumm
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
+
+        ScreenSize.init(context = this)
 
         tableView.setHasFixedWidth(true)
     }
