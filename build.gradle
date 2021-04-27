@@ -38,7 +38,7 @@ allprojects {
         google()
         jcenter()
         maven { url "https://kotlin.bintray.com/kotlinx" }
-        maven { url 'http://maven.andob.info/repository/open_source/' }
+        maven { url 'https://maven.andob.info/repository/open_source/' }
     }
 }
 
